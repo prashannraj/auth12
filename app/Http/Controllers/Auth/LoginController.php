@@ -8,6 +8,8 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Mail;
 use App\Models\User;
 use App\Mail\OtpMail;
+use Illuminate\Support\Facades\Hash;
+
 use Carbon\Carbon;
 
 class LoginController extends Controller
@@ -23,7 +25,7 @@ class LoginController extends Controller
 
         $user = User::where($loginField, $request->login)->first();
 
-        if (!$user || !\Hash::check($request->password, $user->password)) {
+        if (!$user || !Hash::check($request->password, $user->password)) {
             return back()->withErrors(['login' => 'Invalid credentials.']);
         }
 
