@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Facades\Hash;
 use App\Models\User;
 use App\Mail\OtpMail;
 use Carbon\Carbon;
@@ -23,7 +24,7 @@ class LoginController extends Controller
 
         $user = User::where($loginField, $request->login)->first();
 
-        if (!$user || !\Hash::check($request->password, $user->password)) {
+        if (!$user || !Hash::check($request->password, $user->password)) {
             return back()->withErrors(['login' => 'Invalid credentials.']);
         }
 
@@ -34,6 +35,8 @@ class LoginController extends Controller
         $user->save();
 
         Mail::to($user->email)->send(new OtpMail($otp));
+        // Debug the view name
+        dd('auth.otp');
 
         return view('auth.otp', ['email' => $user->email]);
     }
