@@ -2,7 +2,8 @@
 
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
-//use App\Http\Controllers\Auth\LoginController;
+//use App\Http\Controllers\Auth\LoginController
+use App\Http\Controllers\CompanyInfoController;
 
 
 Route::get('/', function () {
@@ -25,6 +26,9 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
+Route::middleware(['auth'])->group(function () {
+    Route::resource('company-infos', CompanyInfoController::class);
+});
     // Route::get('/login', [LoginController::class, 'showLoginForm'])->name('login');
     // Route::post('/login', [LoginController::class, 'login']);
     // Route::post('/verify-otp', [LoginController::class, 'verifyOtp'])->name('verify.otp');
