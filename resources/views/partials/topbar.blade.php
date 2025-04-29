@@ -16,22 +16,34 @@
                 <span class="mr-2 d-none d-lg-inline text-gray-600 small">{{ Auth::user()->name }}</span>
                 <img class="img-profile rounded-circle" src="{{ asset('img/undraw_profile.svg') }}">
             </a>
+
             <!-- Dropdown - User Information -->
             <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="userDropdown">
-                <a class="dropdown-item" href="#">
+                
+                <!-- Profile Edit -->
+                <a class="dropdown-item" href="{{ route('profile.edit') }}">
                     <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
-                    Profile
+                    {{ __('Profile') }}
                 </a>
-                <a class="dropdown-item" href="#">
-                    <i class="fas fa-cogs fa-sm fa-fw mr-2 text-gray-400"></i>
-                    Settings
-                </a>
+
+                <!-- Optional Delete Profile -->
+                <form method="POST" action="{{ route('profile.destroy') }}" onsubmit="return confirm('Are you sure you want to delete your account?');">
+                    @csrf
+                    @method('DELETE')
+                    <button type="submit" class="dropdown-item text-danger">
+                        <i class="fas fa-trash fa-sm fa-fw mr-2"></i>
+                        {{ __('Delete Account') }}
+                    </button>
+                </form>
+
                 <div class="dropdown-divider"></div>
+
+                <!-- Logout -->
                 <form method="POST" action="{{ route('logout') }}">
                     @csrf
-                    <button class="dropdown-item">
+                    <button type="submit" class="dropdown-item">
                         <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
-                        Logout
+                        {{ __('Logout') }}
                     </button>
                 </form>
             </div>
