@@ -4,13 +4,15 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Advisor;
+use App\Models\Company;
 
 class AdvisorController extends Controller
 {
     public function index()
     {
         // Logic to fetch and display all advisors
-        return view('advisors.index');
+        $advisors = Advisor::with('company')->get();
+        return view('advisors.index', compact('advisors'));
     }
 
     public function show($id)
@@ -22,30 +24,49 @@ class AdvisorController extends Controller
     public function create()
     {
         // Logic to show the form for creating a new advisor
-        return view('advisors.create');
+        $companies = Company::all();
+        return view('advisors.create', compact('companies'));
     }
 
     public function store(Request $request)
     {
-        // Logic to store a new advisor
-        // Validate and save the advisor data
-        return redirect()->route('advisors.index');
+        $request->validate([
+            'company_id' => 'required|exists:companies,id',
+            'name' => 'required|string|max:255',
+            'email' => 'nullable|email',
+            'phone' => 'nullable|string',
+            'address' => 'nullable|string',
+            'specialization' => 'nullable|string',
+        ]);
+
+        Advisor::create($request->all());
+
+        return redirect()->route('advisors.index')->with('success', 'Advisor created successfully.');
     }
     public function edit($id)
     {
-        // Logic to show the form for editing an existing advisor
-        return view('advisors.edit', ['id' => $id]);
+        $companies = Company::all();
+        return view('advisors.edit', compact('advisor', 'companies'));
     }
     public function update(Request $request, $id)
     {
-        // Logic to update an existing advisor
-        // Validate and update the advisor data
-        return redirect()->route('advisors.index');
+        $request->validate([
+            'company_id' => 'required|exists:companies,id',
+            'name' => 'required|string|max:255',
+            'email' => 'nullable|email',
+            'phone' => 'nullable|string',
+            'address' => 'nullable|string',
+            'specialization' => 'nullable|string',
+        ]);
+
+        $advisor->update($request->all());
+
+        return redirect()->route('advisors.index')->with('success', 'Advisor updated successfully.');
     }
-    public function destroy($id)
+    public function destroy(Advisor $advisor)
     {
-        // Logic to delete an advisor
-        return redirect()->route('advisors.index');
+        $advisor->delete();
+        return redirect()->route('advisors.index')->with('success', 'Advisor deleted successfully.');
     }
     public function search(Request $request)
     {
