@@ -48,11 +48,11 @@
         <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseComponents"
             aria-expanded="true" aria-controls="collapseComponents">
             <i class="fas fa-fw fa-cog"></i>
-            <span>Company</span>
+            <span>Company Details</span>
         </a>
         <div id="collapseComponents" class="collapse" aria-labelledby="headingComponents" data-parent="#accordionSidebar">
             <div class="bg-white py-2 collapse-inner rounded">
-                <h6 class="collapse-header">Custom Components:</h6>
+                <h6 class="collapse-header">Company Information</h6>
                 <a class="collapse-item" href="#">Buttons</a>
                 <a class="collapse-item" href="#">Cards</a>
             </div>

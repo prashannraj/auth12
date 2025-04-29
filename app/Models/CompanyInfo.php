@@ -3,6 +3,14 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\HasManyThrough;
+use App\Models\Advisor;
+use App\Models\Branch;
+use App\Models\EmailSender;
+use App\Models\Template;
+use App\Models\ServiceFee;
+
 
 class CompanyInfo extends Model
 {
@@ -45,4 +53,30 @@ class CompanyInfo extends Model
     {
         return '/uploads/images/' . ($this->stamp ?? 'placeholder.png');
     }
+
+                public function advisors()
+            {
+                return $this->hasMany(Advisor::class);
+            }
+
+            public function branches()
+            {
+                return $this->hasMany(Branch::class);
+            }
+
+            public function emailSenders()
+            {
+                return $this->hasMany(EmailSender::class);
+            }
+
+            public function templates()
+            {
+                return $this->hasMany(Template::class);
+            }
+
+            public function serviceFees()
+            {
+                return $this->hasMany(ServiceFee::class);
+            }
+
 }
