@@ -6,7 +6,7 @@
 <div class="container">
     <h1 class="h3 mb-4 text-gray-800">Edit Company Information</h1>
 
-    <form action="{{ route('company.update', $company->id) }}" method="POST" enctype="multipart/form-data">
+    <form action="{{ route('company-infos.update', $company->id) }}" method="POST" enctype="multipart/form-data">
         @csrf
         @method('PUT')
 

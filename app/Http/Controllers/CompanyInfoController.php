@@ -41,6 +41,12 @@ class CompanyInfoController extends Controller
         return response()->json($companyInfo);
     }
 
+    public function edit($id)
+    {
+        $company = CompanyInfo::findOrFail($id);
+        return view('admin.company-infos.edit', compact('company'));
+    }
+
     public function update(Request $request, CompanyInfo $companyInfo)
     {
         $validated = $request->validate([

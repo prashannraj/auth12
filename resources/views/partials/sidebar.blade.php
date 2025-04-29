@@ -29,21 +29,6 @@
     </div>
 
     <!-- Nav Item - Components -->
-    <li class="nav-item">
-        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseComponents"
-            aria-expanded="true" aria-controls="collapseComponents">
-            <i class="fas fa-fw fa-cog"></i>
-            <span>Company</span>
-        </a>
-        <div id="collapseComponents" class="collapse" aria-labelledby="headingComponents" data-parent="#accordionSidebar">
-            <div class="bg-white py-2 collapse-inner rounded">
-                <h6 class="collapse-header">Custom Components:</h6>
-                <a class="collapse-item" href="#">Buttons</a>
-                <a class="collapse-item" href="#">Cards</a>
-            </div>
-        </div>
-    </li>
-     <!-- Nav Item - Components -->
      <li class="nav-item">
         <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseComponents"
             aria-expanded="true" aria-controls="collapseComponents">
@@ -53,8 +38,12 @@
         <div id="collapseComponents" class="collapse" aria-labelledby="headingComponents" data-parent="#accordionSidebar">
             <div class="bg-white py-2 collapse-inner rounded">
                 <h6 class="collapse-header">Company Information</h6>
-                <a class="collapse-item" href="#">Buttons</a>
-                <a class="collapse-item" href="#">Cards</a>
+                <a class="collapse-item" href="{{ route('company-infos.edit', $company->id) }}">Company info</a>
+                <a class="collapse-item" href="#">Branchs</a>
+                <a class="collapse-item" href="{{ route('advisors.index') }}">Advisors</a>
+                <a class="collapse-item" href="#">Email Senders</a>
+                <a class="collapse-item" href="#">Service Fees</a>
+                <a class="collapse-item" href="#">Templates</a>
             </div>
         </div>
     </li>

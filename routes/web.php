@@ -31,6 +31,11 @@ Route::middleware('auth')->group(function () {
 
 Route::middleware(['auth'])->group(function () {
     Route::resource('company-infos', CompanyInfoController::class);
+    Route::get('/company-infos/{id}/delete', [CompanyInfoController::class, 'destroy'])->name('company-infos.destroy');
+    Route::get('/company-infos/{id}/edit', [CompanyInfoController::class, 'edit'])->name('company-infos.edit');
+    Route::get('/company-infos/create', [CompanyInfoController::class, 'create'])->name('company-infos.create');
+    Route::get('/company-infos/{id}', [CompanyInfoController::class, 'show'])->name('company-infos.show');
+    Route::get('/company-infos', [CompanyInfoController::class, 'index'])->name('company-infos.index');
 });
 
 Route::middleware(['auth'])->group(function () {
