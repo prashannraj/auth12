@@ -48,16 +48,22 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/advisors/{id}', [AdvisorController::class, 'show'])->name('advisors.show');
     Route::get('/advisors', [AdvisorController::class, 'index'])->name('advisors.index');
 });
+
 Route::middleware(['auth'])->group(function () {
+    // Resourceful route for CRUD operations
     Route::resource('branches', BranchController::class);
-    Route::get('/branches/{id}/delete', [BranchController::class, 'destroy'])->name('branches.destroy');
-    Route::get('/branches/{id}/edit', [BranchController::class, 'edit'])->name('branches.edit');
-    Route::post('/branches/{id}/update', [BranchController::class, 'update'])->name('branches.update');
-    Route::get('/branches/create', [BranchController::class, 'create'])->name('branches.create');
-    Route::post('/branches/store', [BranchController::class, 'store'])->name('branches.store');
-    Route::get('/branches/{id}', [BranchController::class, 'show'])->name('branches.show');
-    Route::get('/branches', [BranchController::class, 'index'])->name('branches.index');
+
+    // Extra routes for non-resource features
+    Route::get('/branches-search', [BranchController::class, 'search'])->name('branches.search');
+    Route::get('/branches-filter', [BranchController::class, 'filter'])->name('branches.filter');
+    Route::get('/branches-sort', [BranchController::class, 'sort'])->name('branches.sort');
+    Route::get('/branches-paginate', [BranchController::class, 'paginate'])->name('branches.paginate');
+    Route::get('/branches-export', [BranchController::class, 'export'])->name('branches.export');
+    Route::post('/branches-import', [BranchController::class, 'import'])->name('branches.import');
+    Route::get('/branches-report', [BranchController::class, 'generateReport'])->name('branches.report');
+    Route::get('/branches/{id}/confirm-delete', [BranchController::class, 'confirmDelete'])->name('branches.confirmDelete');
 });
+
 Route::middleware(['auth'])->group(function () {
     Route::resource('email-senders', EmailSenderController::class);
     Route::get('/email-senders/{id}/delete', [EmailSenderController::class, 'destroy'])->name('email-senders.destroy');

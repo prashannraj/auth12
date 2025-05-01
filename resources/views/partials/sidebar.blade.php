@@ -46,7 +46,7 @@
             <div class="bg-white py-2 collapse-inner rounded">
                 <h6 class="collapse-header">Company Information</h6>
                 <a class="collapse-item" href="{{ route('company-infos.edit', $company->id) }}">Company info</a>
-                <a class="collapse-item" href="#">Branchs</a>
+                <a class="collapse-item" href="{{ route('branches.index') }}">Branches</a>
                 <a class="collapse-item" href="{{ route('advisors.index') }}">Advisors</a>
                 <a class="collapse-item" href="#">Email Senders</a>
                 <a class="collapse-item" href="#">Service Fees</a>
