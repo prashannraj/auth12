@@ -2,12 +2,19 @@
 <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
 
     <!-- Sidebar - Brand -->
-    <a class="sidebar-brand d-flex align-items-center justify-content-center" href="{{ route('dashboard') }}">
-        <div class="sidebar-brand-icon rotate-n-15">
-            <i class="fas fa-laugh-wink"></i>
-        </div>
-        <div class="sidebar-brand-text mx-3">Admin Panel</div>
-    </a>
+    <div class="sidebar-brand d-flex align-items-center justify-content-center" href="{{ route('dashboard') }}">
+    <div class="sidebar-brand-icon">
+        @if($company && $company->logo)
+            <img src="{{ asset('storage/' . $company->logo) }}" alt="Logo" style="width: 40px; height: 40px; object-fit: contain;">
+        @else
+            <i class="fas fa-laugh-wink"></i> {{-- fallback icon --}}
+        @endif
+    </div>
+    <div class="sidebar-brand-text mx-3">
+        {{ $company->name ?? 'Company Name' }}
+    </div>
+</div>
+
 
     <!-- Divider -->
     <hr class="sidebar-divider my-0">
@@ -96,7 +103,12 @@
             <i class="fas fa-fw fa-table"></i>
             <span>Tables</span></a>
     </li>
-    
+    <!-- Nav Item - User    -->
+    <li class="nav-item">
+        <a class="nav-link" href="#">
+            <i class="fas fa-fw fa-user"></i>
+            <span>Users</span></a>
+    </li>    
 
 
     <!-- Divider -->

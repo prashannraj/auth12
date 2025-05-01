@@ -20,13 +20,13 @@ class CompanyInfoController extends Controller
             'address' => 'nullable|string|max:500',
             'registration_no' => 'nullable|string|max:100',
             'website' => 'nullable|url|max:255',
-            'logo' => 'nullable|string|max:255',
-            'stamp' => 'nullable|string|max:255',
+            'logo' => 'sometimes|file|image|max:2048',
+            'stamp' => 'sometimes|file|image|max:2048',
+            'regulator_logo' => 'sometimes|file|image|max:2048',
             'telephone' => 'nullable|string|max:50',
             'email' => 'nullable|email|max:255',
             'registered_in' => 'nullable|string|max:100',
             'regulated_by' => 'nullable|string|max:255',
-            'regulator_logo' => 'nullable|string|max:255',
             'regulation_no' => 'nullable|string|max:100',
             'vat' => 'nullable|string|max:100',
             // Add more validation as needed
@@ -55,20 +55,40 @@ class CompanyInfoController extends Controller
             'address' => 'sometimes|nullable|string|max:500',
             'registration_no' => 'sometimes|nullable|string|max:100',
             'website' => 'sometimes|nullable|url|max:255',
-            'logo' => 'sometimes|nullable|string|max:255',
-            'stamp' => 'sometimes|nullable|string|max:255',
+            'logo' => 'sometimes|file|image|max:2048',
+            'stamp' => 'sometimes|file|image|max:2048',
+            'regulator_logo' => 'sometimes|file|image|max:2048',
             'telephone' => 'sometimes|nullable|string|max:50',
             'email' => 'sometimes|nullable|email|max:255',
             'registered_in' => 'sometimes|nullable|string|max:100',
             'regulated_by' => 'sometimes|nullable|string|max:255',
-            'regulator_logo' => 'sometimes|nullable|string|max:255',
             'regulation_no' => 'sometimes|nullable|string|max:100',
             'vat' => 'sometimes|nullable|string|max:100',
             // Add more validation as needed
         ]);
 
-        $companyInfo->update($validated);
-        return response()->json($companyInfo);
+        // Handle logo upload
+    if ($request->hasFile('logo')) {
+        $validated['logo'] = $request->file('logo')->store('logos', 'public');
+    }
+
+    // Handle stamp upload
+    if ($request->hasFile('stamp')) {
+        $validated['stamp'] = $request->file('stamp')->store('stamps', 'public');
+    }
+
+    // Handle regulator_logo upload
+    if ($request->hasFile('regulator_logo')) {
+        $validated['regulator_logo'] = $request->file('regulator_logo')->store('regulator_logos', 'public');
+    }
+
+    // Update model
+    $companyInfo->update($validated);
+
+    return redirect()
+        ->route('company-infos.edit', $companyInfo->id)
+        ->with('success', 'Company updated successfully.');
+
     }
 
     public function destroy(CompanyInfo $companyInfo)
